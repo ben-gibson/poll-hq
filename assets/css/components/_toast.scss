@@ -1,0 +1,22 @@
+.toast-stack {
+  z-index: 100;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  .toast {
+    min-width: 300px;
+  }
+
+  @each $color, $value in $theme-colors {
+    .toast-#{$color} {
+      color: color-yiq($value);
+      @include gradient-bg($value);
+
+      .toast-header {
+        color: color-yiq($value);
+        @include gradient-bg($value);
+      }
+    }
+  }
+}

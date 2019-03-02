@@ -1,0 +1,23 @@
+{%- set type, dismissible = type|default('success'), dismissible|default(false) -%}
+{%- set attr = attr|default({})|merge({
+    class: (attr.class|default('') ~ ' alert alert-' ~ type ~ (dismissible ? ' alert-dismissible fade show' : ''))|trim
+})
+-%}
+<div{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+    {% if dismissible %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+    {% endif %}
+    {% if type == 'success' %}
+        <i class="fa fa-check-circle"></i>
+    {% elseif type == 'info' %}
+        <i class="fa fa-info-circle"></i>
+    {% elseif type == 'warning' %}
+        <i class="fa fa-exclamation-triangle"></i>
+    {% elseif type == 'danger' %}
+        <i class="fa fa-exclamation-circle"></i>
+    {% endif %}
+    {% block content %}{{ content|default('') }}{% endblock %}
+    <div>
+        {% block detail %}{% endblock %}
+    </div>
+</div>

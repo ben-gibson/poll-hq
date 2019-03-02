@@ -1,0 +1,38 @@
+{% extends '@view/poll/base.html.twig' %}
+
+{% block page_header %} Create Poll {% endblock %}
+
+{% block page_content %}
+    {{ form_start(createPollForm) }}
+    {{ form_errors(createPollForm) }}
+    <div class="row">
+        <div class="col-lg-6">
+            {% embed '@partial/card.html.twig' with {'title': 'Basic'} %}
+                {% block body %}
+                    {{ form_row(createPollForm.id) }}
+                    {{ form_row(createPollForm.name) }}
+                    {{ form_row(createPollForm.topic) }}
+                    {{ form_row(createPollForm.description) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-lg-6">
+            {% embed '@partial/card.html.twig' with {'title': 'Collection Configuration'} %}
+                {% block body %}
+                    {{ form_row(createPollForm.responseTarget) }}
+                    {{ form_row(createPollForm.closeDate) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% embed '@partial/card.html.twig' %}
+                {% block body %}
+                    {{ form_row(createPollForm.save) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+    {{ form_end(createPollForm) }}
+{% endblock %}

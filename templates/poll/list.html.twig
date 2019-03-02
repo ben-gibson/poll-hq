@@ -1,0 +1,22 @@
+{% extends '@view/poll/base.html.twig' %}
+
+{% block page_header %} Polls {% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {% embed '@partial/card.html.twig' with {'title': 'Recent Polls', 'subTitle': 'A list of your 5 most recent polls.'} %}
+
+                {% block header %}
+                    <div class="text-right">
+                        <a class="btn btn-primary" href="{{ path('polls_create') }}">Create</a>
+                    </div>
+                {% endblock %}
+
+                {% block body %}
+                    {% include '@view/poll/_partial/poll_list.html.twig' with {'polls': polls} only %}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock %}

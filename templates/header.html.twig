@@ -1,0 +1,52 @@
+{% block header %}
+    <header class="d-flex flex-row p-3 px-md-4">
+        <form class="d-none d-md-block d-lg-block d-xl-block">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <span class="mdi mdi-magnify"></span>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <ul class="nav mr-auto ml-auto mr-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i>
+                </a>
+                <div class="dropdown-menu notification-gutter text-muted dropdown-menu-right">
+
+                    <div class="dropdown-header">
+                        <h5 class="m-0">
+                            <span class="float-right">
+                                <a href="#">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>
+                            Notifications
+                        </h5>
+                    </div>
+                    <a href="#" class="dropdown-item">
+                        <p class="mb-1">Poll 'Test 123' was built.</p>
+                        <small class="text-success">5 minutes ago.</small>
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <p class="mb-1">Poll 'Test 123' has gone live.</p>
+                        <small class="text-success">10 minutes ago.</small>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Sign out</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+{% endblock %}

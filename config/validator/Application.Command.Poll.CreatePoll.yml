@@ -1,0 +1,24 @@
+App\Application\Command\Poll\CreatePoll:
+  properties:
+    id:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Uuid: ~
+    name:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          min: 3
+    topic:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          min: 3
+    description:
+      - Type:
+          type: string
+      - Length:
+          max: 200
