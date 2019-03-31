@@ -1,0 +1,26 @@
+.sidebar {
+  margin-left: -250px;
+  max-width: 250px;
+  min-width: 250px;
+  height: 100%;
+  background-color: $theme-tertiary;
+
+  @include media-breakpoint-up(sm) {
+    margin-left: 0;
+    width: 250px;
+  }
+
+  .nav {
+    a {
+      color: $body-color;
+
+      &.active {
+        color: $white;
+      }
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-body">
+        <div class="card-body-header mb-3">
+            {% block header %}
+                <h5 class="card-title text-uppercase">{% block title %}{{ title|default('') }}{% endblock %}</h5>
+                <h6 class="card-subtitle text-muted ">{% block subTitle %}{{ subTitle|default('') }}{% endblock %}</h6>
+            {% endblock %}
+        </div>
+        {% block body %} {% endblock %}
+    </div>
+</div>

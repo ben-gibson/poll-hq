@@ -1,0 +1,22 @@
+html, body, .wrapper {
+  height: 100%;
+}
+
+a {
+  outline: none;
+}
+
+.heading-white {
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+}
+
+.page-heading {
+  margin: 0;
+  line-height: 85px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: $page-title-color;
+}

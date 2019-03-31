@@ -1,0 +1,28 @@
+{% use '@view/sidebar.html.twig' %}
+{% use '@view/header.html.twig' %}
+
+{% block body %}
+
+    <div class="toast-stack">
+        {% block toats %}
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    {% include '@partial/toast.html.twig' with {type: type, content: message} %}
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+
+    <div class="wrapper d-flex flex-row align-items-stretch">
+        {% block sidebar %} {{ parent() }} {% endblock %}
+        <main class="flex-grow-1">
+            {% block header %} {{ parent() }} {% endblock %}
+            <div class="col-12">
+                <h4 class="page-heading">{% block page_header %} PollHQ {% endblock %}</h4>
+            </div>
+            <div class="container-fluid">
+                {% block page_content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}

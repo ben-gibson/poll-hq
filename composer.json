@@ -2,14 +2,32 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "krixon/domain-event": "0.3.0.x-dev",
+        "krixon/identity": "^0.1.1",
+        "robmorgan/phinx": "^0.10.6",
+        "sensio/framework-extra-bundle": "^5.2",
+        "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
         "symfony/dotenv": "4.2.*",
         "symfony/flex": "^1.1",
+        "symfony/form": "4.2.*",
         "symfony/framework-bundle": "4.2.*",
+        "symfony/messenger": "4.2.*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/serializer-pack": "^1.0",
+        "symfony/twig-bundle": "4.2.*",
+        "symfony/validator": "4.2.*",
+        "symfony/webpack-encore-bundle": "^1.2",
         "symfony/yaml": "4.2.*"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^5.0"
     },
     "config": {
         "preferred-install": {
@@ -36,12 +54,25 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "migrate": [
+            "@migrate:event",
+            "@migrate:read"
+        ],
+        "cs": "phpcs src",
+        "cs:fix": "phpcbf src",
+        "migrate:event": "DATABASE_NAME=poll_hq_event phinx migrate -e current",
+        "migrate:read": "DATABASE_NAME=poll_hq_read phinx migrate -e current",
+        "migration:event": "DATABASE_NAME=poll_hq_event phinx create",
+        "migration:read": "DATABASE_NAME=poll_hq_read phinx create",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "yarn install",
+            "yarn dev",
+            "@migrate"
         ],
         "post-update-cmd": [
             "@auto-scripts"

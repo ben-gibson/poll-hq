@@ -1,0 +1,19 @@
+{
+  "namespaces": [
+    {
+      "namespace": "layout",
+      "path": "templates/_layouts"
+    },
+    {
+      "namespace": "partial",
+      "path": "templates/_partials"
+    },
+    {
+      "namespace": "view",
+      "path": "templates"
+    },
+    {
+      "path": "templates"
+    }
+  ]
+}

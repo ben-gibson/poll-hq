@@ -1,0 +1,92 @@
+version: "3.7"
+
+volumes:
+  rabbitmq: ~
+  postgres-data: ~
+
+networks:
+  poll_hq: ~
+
+services:
+  app:
+    build:
+      context: ./docker/dev/app
+      args:
+        UID: ${DEV_UID}
+    volumes:
+      - ./:/var/www
+    networks:
+      - poll_hq
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+      - DATABASE_HOST=db
+      - MESSENGER_TRANSPORT_DSN
+      - PHP_IDE_CONFIG=serverName=pollhq-dev
+      - XDEBUG_CONFIG
+
+  app-command-consumer:
+    build:
+      context: ./docker/dev/app
+      args:
+        UID: ${DEV_UID}
+    command: php bin/console pollhq:bus:consume:commands
+    volumes:
+      - ./:/var/www
+    networks:
+      - poll_hq
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+      - DATABASE_HOST=db
+      - MESSENGER_TRANSPORT_DSN
+      - PHP_IDE_CONFIG=serverName=pollhq-dev
+      - XDEBUG_CONFIG
+
+  app-event-consumer:
+    build:
+      context: ./docker/dev/app
+      args:
+        UID: ${DEV_UID}
+    command: php bin/console pollhq:bus:consume:events
+    volumes:
+      - ./:/var/www
+    networks:
+      - poll_hq
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+      - DATABASE_HOST=db
+      - MESSENGER_TRANSPORT_DSN
+      - PHP_IDE_CONFIG=serverName=pollhq-dev
+      - XDEBUG_CONFIG
+
+  db:
+    image: postgres:11.2-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/dev/db/init.sh:/docker-entrypoint-initdb.d/init.sh
+    networks:
+      - poll_hq
+    environment:
+      POSTGRES_DB:       poll_hq_event
+      POSTGRES_USER:     dev
+      POSTGRES_PASSWORD: dev
+
+  nginx:
+    image: nginx:1.15.9-alpine
+    working_dir: /var/www
+    volumes:
+      - ./public:/var/www/public
+      - ./docker/dev/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/dev/nginx/server.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - poll_hq
+    ports:
+      - 8080:80
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - poll_hq
+    ports:
+      - 15672:15672

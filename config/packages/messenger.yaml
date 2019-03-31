@@ -1,0 +1,31 @@
+framework:
+    messenger:
+
+        serializer:
+            id: app.messenger.serializer
+
+        buses:
+            messenger.bus.command:
+                middleware:
+                    - messenger.middleware.validation
+                    - 'App\Adapter\MessageBus\Middleware\DBALTransactionManager'
+
+            messenger.bus.event:
+                default_middleware: allow_no_handlers
+
+        transports:
+            amqp_commands:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange: {name: "commands", type: "fanout"}
+                    queue: {name: "commands"}
+
+            amqp_events:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange: {name: "events", type: "fanout"}
+                    queue: {name: "events"}
+
+        routing:
+            'App\Application\Command\Command': amqp_commands
+            'Krixon\DomainEvent\Event': amqp_events

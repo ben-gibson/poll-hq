@@ -1,0 +1,32 @@
+{% if polls|length == 0 %}
+    No polls to display
+{% else %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stage</th>
+                <th>Responses</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for poll in polls %}
+                <tr>
+                    <td>{{ poll.name }}</td>
+                    <td><span class="badge badge-danger">Closed</span></td>
+                    <td><span class="badge badge-success">206</span></td>
+                    <td class="table-action">
+                        <div class="btn-group" role="group" aria-label="Poll actions">
+                            <a href="{{ path('polls_overview', {'id': poll.id}) }}" class="btn btn-primary btn-sm"> <i class="fa fa-eye"></i></a>
+                            <a href="#" class="btn btn-secondary btn-sm"> <i class="fa fa-pencil-alt"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
