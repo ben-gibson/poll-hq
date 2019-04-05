@@ -8,9 +8,11 @@ framework:
             messenger.bus.command:
                 middleware:
                     - messenger.middleware.validation
-                    - 'App\Adapter\MessageBus\Middleware\DBALTransactionManager'
+                    - app.messenger.bus.command.middleware.transaction
 
             messenger.bus.event:
+                middleware:
+                    - app.messenger.bus.event.middleware.transaction
                 default_middleware: allow_no_handlers
 
         transports:

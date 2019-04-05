@@ -55,6 +55,11 @@ services:
         arguments:
             - '@messenger.bus.command'
 
+    app.messenger.bus.command.middleware.transaction:
+        class: App\Adapter\MessageBus\Middleware\DBALTransactionManager
+        arguments:
+            - '@doctrine.dbal.event_connection'
+
     # EVENTS
     App\Adapter\Event\SymfonyEventBus:
         arguments:
@@ -78,3 +83,8 @@ services:
             - '@Krixon\DomainEvent\Storage\Hydration\EventReflectionHydrator'
 
     Krixon\DomainEvent\Storage\EventStreamStore: '@App\Adapter\Persistence\Doctrine\DBALEventStreamStore'
+
+    app.messenger.bus.event.middleware.transaction:
+        class: App\Adapter\MessageBus\Middleware\DBALTransactionManager
+        arguments:
+            - '@doctrine.dbal.read_connection'

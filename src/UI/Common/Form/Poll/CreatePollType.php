@@ -33,7 +33,7 @@ class CreatePollType extends AbstractType
                 IntegerType::class,
                 [
                     'required' => false,
-                    'help'     => 'The poll will automatically close when the target is reached. Leave blank if you do not have a particular target.',
+                    'help'     => 'The Poll will automatically close when this target is reached. Leave blank if you want to collect as many responses as possible.',
                 ]
             )
             ->add(
@@ -41,7 +41,7 @@ class CreatePollType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
-                    'help'     => 'Leave blank if you do not want to poll to close by a specific date.',
+                    'help'     => 'Leave blank if you do not want the Poll to close by a specific date.',
                 ]
             )
             ->add('description', TextareaType::class, ['required' => false])
