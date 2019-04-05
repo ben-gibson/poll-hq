@@ -30,6 +30,9 @@ services:
       args:
         UID: ${DEV_UID}
     command: php bin/console pollhq:bus:consume:commands
+    restart: always
+    depends_on:
+      - rabbitmq
     volumes:
       - ./:/var/www
     networks:
@@ -47,6 +50,9 @@ services:
       args:
         UID: ${DEV_UID}
     command: php bin/console pollhq:bus:consume:events
+    restart: always
+    depends_on:
+      - rabbitmq
     volumes:
       - ./:/var/www
     networks:
